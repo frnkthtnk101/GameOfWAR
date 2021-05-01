@@ -12,12 +12,14 @@ namespace GameOfWAR.Logic
 {
     public class DeckWithJokers : ICardhandler
     {
-        List<Card> _DeckOfCards;
+        readonly int _numberOfCardsInDeck = 54;
+        List<Card> _deckOfCards;
         int _cardDivider;
-        readonly int _NumberOfCardsInDeck = 54;
+        bool _lastPlayerGetsAnExtraCard; 
+
         public DeckWithJokers()
         {
-            _DeckOfCards = new List<Card>(_NumberOfCardsInDeck)
+            _deckOfCards = new List<Card>(_numberOfCardsInDeck)
             {
                 new Card()
                 {
@@ -31,14 +33,15 @@ namespace GameOfWAR.Logic
                 .Where(x => x != CardValues.Joker);
             foreach (var face in facesInDeck)
                 foreach (var value in valuesInDeck)
-                    _DeckOfCards.Add(new Card()
+                    _deckOfCards.Add(new Card()
                     {
                         Face = face,
                         Value = value
                     });
-            _cardDivider = 0;
+            
 
         }
+
         public IEnumerable<Card> GetPlayerDeck(int player)
         {
 
@@ -46,26 +49,28 @@ namespace GameOfWAR.Logic
             if (player > 0) groupToGet = player;
             int low = _cardDivider * groupToGet;
             int high = _cardDivider * groupToGet + 1;
-            var cards = _DeckOfCards.GetRange(low, high);
+            var handLastCard = high + 1 == _numberOfCardsInDeck && _lastPlayerGetsAnExtraCard;
+            if (handLastCard) high++;
+            var cards = _deckOfCards.GetRange(low, high);
             return cards;
         }
 
         public void ShuffleCards()
         {
             var indexScrambler = new Random();
-            for(int i = 0; i < _NumberOfCardsInDeck; i++)
+            for(int i = 0; i < _numberOfCardsInDeck; i++)
             {
-                var randomIndex = indexScrambler.Next(0, _NumberOfCardsInDeck - 1);
-                var tempvalue = _DeckOfCards[randomIndex];
-                _DeckOfCards[randomIndex] = _DeckOfCards[i];
-                _DeckOfCards[i] = tempvalue;
+                var randomIndex = indexScrambler.Next(0, _numberOfCardsInDeck - 1);
+                var tempvalue = _deckOfCards[randomIndex];
+                _deckOfCards[randomIndex] = _deckOfCards[i];
+                _deckOfCards[i] = tempvalue;
             }
         }
 
-
         public void Split(int numOfPlayers = 2)
         {
-            throw new NotImplementedException();
+            _cardDivider = _numberOfCardsInDeck / numOfPlayers;
+            if (numOfPlayers % _numberOfCardsInDeck > 0) _lastPlayerGetsAnExtraCard = true;
         }
     }
 }
