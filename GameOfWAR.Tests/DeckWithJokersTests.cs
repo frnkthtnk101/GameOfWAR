@@ -16,7 +16,7 @@ namespace GameOfWAR.Tests
         public DeckWithJokersTests()
         {
             _correctNumberOfCars = 54;
-            
+
         }
         [TestMethod]
         public void ShouldCreateADeckOfFiftyFour()
@@ -86,11 +86,41 @@ namespace GameOfWAR.Tests
             Assert.IsTrue(correct);
             //Clean up - none
         }
+        [TestMethod]
+        public void ShouldShuffleDeck()
+        {
+            //Arrange
+            _jokersTest = new DeckWithJokers();
+            //Test
+            _jokersTest.ShuffleCards();
+            var correct = _jokersTest.GetCards()[0].Face != CardFace.Joker ||
+                _jokersTest.GetCards()[1].Face != CardFace.Joker;
+            //Assert
+            Assert.IsTrue(correct);
+            //Clean up - none
+        }
+        [TestMethod]
+        public void ShouldShuffleDeckAndKeepIntegrityOfDeck()
+        {
+            //Arrange
+            _jokersTest = new DeckWithJokers();
+            //Test
+            _jokersTest.ShuffleCards();
+            var cards = _jokersTest.GetCards();
+            var hasAllSpades = DoesDeckHaveCorrectCardsGroup(CardFace.Spades, cards);
+            var hasAllHearts = DoesDeckHaveCorrectCardsGroup(CardFace.Hearts, cards);
+            var hasAllClubs = DoesDeckHaveCorrectCardsGroup(CardFace.Clubs, cards);
+            var hasAllDiamonds = DoesDeckHaveCorrectCardsGroup(CardFace.Diamonds, cards);
+            var correct = hasAllSpades && hasAllHearts && hasAllClubs && hasAllDiamonds;
+            //Assert
+            Assert.IsTrue(correct);
+            //Clean up - none
+        }
         private bool DoesDeckHaveCorrectCardsGroup(CardFace face, List<Card> cards)
         {
             bool istrue = false;
             var valueGroup = GetEnumList<CardValues>().Where(x => x != CardValues.Joker);
-            foreach(var value in valueGroup)
+            foreach (var value in valueGroup)
             {
                 istrue = cards.Where(x => x.Face == face && x.Value == value).Count() == 1;
                 if (!istrue) break;
