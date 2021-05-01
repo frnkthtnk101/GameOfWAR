@@ -52,7 +52,7 @@ namespace GameOfWAR.Logic
             if (player > 0) groupToGet = player;
             int startingIndex = groupToGet * _cardDivider;
             int numberToGet = _cardDivider;
-            var handLastCard = numberToGet + 1 == _numberOfCardsInDeck && _lastPlayerGetsAnExtraCard;
+            var handLastCard = startingIndex + numberToGet + 1 == _numberOfCardsInDeck - 1 && _lastPlayerGetsAnExtraCard;
             if (handLastCard) numberToGet++;
             var cards = _deckOfCards.GetRange(startingIndex, numberToGet);
             return cards;

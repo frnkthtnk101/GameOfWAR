@@ -9,7 +9,7 @@ using GameOfWAR.POCOS;
 namespace GameOfWAR.Tests
 {
     [TestClass]
-    public class DeckWithJokersTests
+    public class DeckWithJokersTests : TestHelper
     {
         DeckWithJokers _jokersTest;
         int _correctNumberOfCards;
@@ -133,6 +133,44 @@ namespace GameOfWAR.Tests
             //Clean up - none
         }
         [TestMethod]
+        public void ShouldGiveAFullDeckFromTheSplittedTDeck()
+        {
+            //Arrange
+            _jokersTest = new DeckWithJokers();
+            //Test
+            _jokersTest.Split();
+            var playerOne = _jokersTest.GetPlayerDeck(0);
+            var playerTwo = _jokersTest.GetPlayerDeck(1);
+            var cards = new List<Card>(playerOne);
+            cards.AddRange(playerTwo);
+            var hasAllSpades = DoesDeckHaveCorrectCardsGroup(CardFace.Spades, cards);
+            var hasAllHearts = DoesDeckHaveCorrectCardsGroup(CardFace.Hearts, cards);
+            var hasAllClubs = DoesDeckHaveCorrectCardsGroup(CardFace.Clubs, cards);
+            var hasAllDiamonds = DoesDeckHaveCorrectCardsGroup(CardFace.Diamonds, cards);
+            var correct = hasAllSpades && hasAllHearts && hasAllClubs && hasAllDiamonds;
+            //Assert
+            Assert.IsTrue(correct);
+            //Clean up - none
+        }
+        [TestMethod]
+        public void ShouldGiveTwoEqualDecksAndOneBiggerDeck()
+        {
+            //Arrange
+            _jokersTest = new DeckWithJokers();
+            //Test
+            _jokersTest.Split(4);
+            var playerOne = _jokersTest.GetPlayerDeck(0);
+            var playerTwo = _jokersTest.GetPlayerDeck(1);
+            var playerThree = _jokersTest.GetPlayerDeck(2);
+            var playerFour = _jokersTest.GetPlayerDeck(3);
+            var correct = playerOne.Count() == playerTwo.Count() && 
+                playerTwo.Count() == playerThree.Count() &&
+                playerThree.Count() + 1 == playerFour.Count();
+            //Assert
+            Assert.IsTrue(correct);
+            //Clean up - none
+        }
+        [TestMethod]
         public void ShouldGiveTwoDeckOfCardsThatAreEqualInSizeButtheThird()
         {
             //Arrange
@@ -158,9 +196,6 @@ namespace GameOfWAR.Tests
             return istrue;
 
         }
-        IEnumerable<T> GetEnumList<T>()
-        {
-            return Enum.GetValues(typeof(T)).Cast<T>();
-        }
+
     }
 }

@@ -51,6 +51,8 @@
   <ItemGroup>
     <Compile Include="DeckWithJokersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EnumHelperTest.cs" />
+    <Compile Include="TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

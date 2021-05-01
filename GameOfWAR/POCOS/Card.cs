@@ -2,7 +2,7 @@
 
 namespace GameOfWAR.POCOS
 {
-    public class Card
+    public class Card 
     {
         public CardFace Face { get; set; }
         public CardValues Value { get; set; }
