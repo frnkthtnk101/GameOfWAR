@@ -1,0 +1,17 @@
+C:\Users\Luig\Documents\GitHub\GameOfWAR\GameOfWAR.Tests\obj\Debug\GameOfWAR.Tests.csprojAssemblyReference.cache
+C:\Users\Luig\Documents\GitHub\GameOfWAR\GameOfWAR.Tests\obj\Debug\GameOfWAR.Tests.csproj.CoreCompileInputs.cache
+C:\Users\Luig\Documents\GitHub\GameOfWAR\GameOfWAR.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Luig\Documents\GitHub\GameOfWAR\GameOfWAR.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Luig\Documents\GitHub\GameOfWAR\GameOfWAR.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\Luig\Documents\GitHub\GameOfWAR\GameOfWAR.Tests\bin\Debug\GameOfWAR.Tests.dll
+C:\Users\Luig\Documents\GitHub\GameOfWAR\GameOfWAR.Tests\bin\Debug\GameOfWAR.Tests.pdb
+C:\Users\Luig\Documents\GitHub\GameOfWAR\GameOfWAR.Tests\bin\Debug\GameOfWAR.exe
+C:\Users\Luig\Documents\GitHub\GameOfWAR\GameOfWAR.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\Luig\Documents\GitHub\GameOfWAR\GameOfWAR.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\Luig\Documents\GitHub\GameOfWAR\GameOfWAR.Tests\bin\Debug\GameOfWAR.pdb
+C:\Users\Luig\Documents\GitHub\GameOfWAR\GameOfWAR.Tests\bin\Debug\GameOfWAR.exe.config
+C:\Users\Luig\Documents\GitHub\GameOfWAR\GameOfWAR.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\Luig\Documents\GitHub\GameOfWAR\GameOfWAR.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\Luig\Documents\GitHub\GameOfWAR\GameOfWAR.Tests\obj\Debug\GameOfWAR.Tests.csproj.CopyComplete
+C:\Users\Luig\Documents\GitHub\GameOfWAR\GameOfWAR.Tests\obj\Debug\GameOfWAR.Tests.dll
+C:\Users\Luig\Documents\GitHub\GameOfWAR\GameOfWAR.Tests\obj\Debug\GameOfWAR.Tests.pdb

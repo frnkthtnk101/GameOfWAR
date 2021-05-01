@@ -23,6 +23,11 @@ namespace GameOfWAR.Logic
                 {
                     Face = CardFace.Joker,
                     Value = CardValues.Joker
+                },
+                new Card()
+                {
+                    Face = CardFace.Joker,
+                    Value = CardValues.Joker
                 }
             };
             var facesInDeck = EnumHelper.GetEnumList<CardFace>()
