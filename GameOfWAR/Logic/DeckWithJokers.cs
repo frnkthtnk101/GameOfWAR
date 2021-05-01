@@ -13,6 +13,7 @@ namespace GameOfWAR.Logic
     public class DeckWithJokers : ICardhandler
     {
         List<Card> _DeckOfCards;
+        int _cardDivider;
         readonly int _NumberOfCardsInDeck = 54;
         public DeckWithJokers()
         {
@@ -35,11 +36,18 @@ namespace GameOfWAR.Logic
                         Face = face,
                         Value = value
                     });
+            _cardDivider = 0;
 
         }
-        public void GetPlayerDeck(int Player)
+        public IEnumerable<Card> GetPlayerDeck(int player)
         {
-            throw new NotImplementedException();
+
+            var groupToGet = 0;
+            if (player > 0) groupToGet = player;
+            int low = _cardDivider * groupToGet;
+            int high = _cardDivider * groupToGet + 1;
+            var cards = _DeckOfCards.GetRange(low, high);
+            return cards;
         }
 
         public void ShuffleCards()
