@@ -1,0 +1,2 @@
+C:\Users\Luig\Documents\GitHub\GameOfWAR\GameOfWAR\obj\Debug\GameOfWAR.csprojAssemblyReference.cache
+C:\Users\Luig\Documents\GitHub\GameOfWAR\GameOfWAR\obj\Debug\GameOfWAR.csproj.CoreCompileInputs.cache
