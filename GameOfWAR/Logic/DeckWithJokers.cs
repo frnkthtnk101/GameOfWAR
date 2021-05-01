@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GameOfWAR.Interfaces;
 using GameOfWAR.POCOS;
 using GameOfWAR.Enums;
@@ -72,5 +70,6 @@ namespace GameOfWAR.Logic
             _cardDivider = _numberOfCardsInDeck / numOfPlayers;
             if (numOfPlayers % _numberOfCardsInDeck > 0) _lastPlayerGetsAnExtraCard = true;
         }
+        public List<Card> GetCards() => _deckOfCards;
     }
 }
