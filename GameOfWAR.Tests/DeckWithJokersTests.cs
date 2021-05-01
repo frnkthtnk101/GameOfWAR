@@ -12,10 +12,10 @@ namespace GameOfWAR.Tests
     public class DeckWithJokersTests
     {
         DeckWithJokers _jokersTest;
-        int _correctNumberOfCars;
+        int _correctNumberOfCards;
         public DeckWithJokersTests()
         {
-            _correctNumberOfCars = 54;
+            _correctNumberOfCards = 54;
 
         }
         [TestMethod]
@@ -25,7 +25,7 @@ namespace GameOfWAR.Tests
             _jokersTest = new DeckWithJokers();
             //Test
             var numberOfCardsInDeck = _jokersTest.GetCards().Count;
-            var hasCorrectNumberOfCards = numberOfCardsInDeck == _correctNumberOfCars;
+            var hasCorrectNumberOfCards = numberOfCardsInDeck == _correctNumberOfCards;
             //Assert
             Assert.IsTrue(hasCorrectNumberOfCards);
             //Clean up - none
@@ -114,6 +114,36 @@ namespace GameOfWAR.Tests
             var correct = hasAllSpades && hasAllHearts && hasAllClubs && hasAllDiamonds;
             //Assert
             Assert.IsTrue(correct);
+            //Clean up - none
+        }
+        [TestMethod]
+        public void ShouldGiveTwoDeckOfCardsThatAreEqualInSize()
+        {
+            //Arrange
+            _jokersTest = new DeckWithJokers();
+            //Test
+            _jokersTest.Split();
+            var playerOne = _jokersTest.GetPlayerDeck(0);
+            var playerTwo = _jokersTest.GetPlayerDeck(1);
+            var sameAmountOfCards = playerOne.Count() == playerTwo.Count();
+            var correctNumberOFCards = playerOne.Count() + playerTwo.Count() == _correctNumberOfCards;
+            var correct = correctNumberOFCards && sameAmountOfCards;
+            //Assert
+            Assert.IsTrue(correct);
+            //Clean up - none
+        }
+        [TestMethod]
+        public void ShouldGiveTwoDeckOfCardsThatAreEqualInSizeButtheThird()
+        {
+            //Arrange
+            _jokersTest = new DeckWithJokers();
+            //Test
+            _jokersTest.Split();
+            var playerOne = _jokersTest.GetPlayerDeck(0);
+            var playerTwo = _jokersTest.GetPlayerDeck(1);
+            var sameAmountOfCards = playerOne.Count() == playerTwo.Count();
+            //Assert
+            Assert.IsTrue(sameAmountOfCards);
             //Clean up - none
         }
         private bool DoesDeckHaveCorrectCardsGroup(CardFace face, List<Card> cards)

@@ -50,11 +50,11 @@ namespace GameOfWAR.Logic
 
             var groupToGet = 0;
             if (player > 0) groupToGet = player;
-            int low = _cardDivider * groupToGet;
-            int high = _cardDivider * groupToGet + 1;
-            var handLastCard = high + 1 == _numberOfCardsInDeck && _lastPlayerGetsAnExtraCard;
-            if (handLastCard) high++;
-            var cards = _deckOfCards.GetRange(low, high);
+            int startingIndex = groupToGet * _cardDivider;
+            int numberToGet = _cardDivider;
+            var handLastCard = numberToGet + 1 == _numberOfCardsInDeck && _lastPlayerGetsAnExtraCard;
+            if (handLastCard) numberToGet++;
+            var cards = _deckOfCards.GetRange(startingIndex, numberToGet);
             return cards;
         }
 
@@ -73,7 +73,7 @@ namespace GameOfWAR.Logic
         public void Split(int numOfPlayers = 2)
         {
             _cardDivider = _numberOfCardsInDeck / numOfPlayers;
-            if (numOfPlayers % _numberOfCardsInDeck > 0) _lastPlayerGetsAnExtraCard = true;
+            if (_numberOfCardsInDeck % numOfPlayers  > 0) _lastPlayerGetsAnExtraCard = true;
         }
         public List<Card> GetCards() => _deckOfCards;
     }
