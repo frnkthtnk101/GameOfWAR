@@ -24,6 +24,37 @@ namespace GameOfWAR.Logic
             return determinationOfBattle;
         }
 
+        public void Fight(Queue<Card> playerOne, Queue<Card> playerTwo, int winnerOfbattle, List<Card> spoilsOfWar)
+        {
+            switch (winnerOfbattle)
+            {
+                case -1:
+                case 1:
+                    spoilsOfWar.Add(playerOne.Dequeue());
+                    spoilsOfWar.Add(playerTwo.Dequeue());
+                    if(winnerOfbattle == -1) GiveSpoilsToPlayer(playerOne, spoilsOfWar);
+                    else GiveSpoilsToPlayer(playerTwo, spoilsOfWar);
+                    break;
+                default:
+                    for (int i = 0; i < 3; i++)
+                    {
+                        if (playerOne.Count > 1) spoilsOfWar.Add(playerOne.Dequeue());
+                        if (playerTwo.Count > 1) spoilsOfWar.Add(playerTwo.Dequeue());
+                    }
+                    winnerOfbattle = DetermineWinnerOfBattle(playerOne.Peek(), playerTwo.Peek());
+                    Fight(playerOne, playerTwo, winnerOfbattle, spoilsOfWar);
+                    break;
+            }
+        }
+
+        private void GiveSpoilsToPlayer(Queue<Card> player, List<Card> spoilsOfWar)
+        {
+            foreach (var card in spoilsOfWar)
+            {
+                player.Enqueue(card);
+            }
+        }
+
         public bool GameOver(IEnumerable<Card> playerOne, IEnumerable<Card> playerTwo)
         {
             return playerOne.Count() == 0 || playerOne.Count() == 0;
