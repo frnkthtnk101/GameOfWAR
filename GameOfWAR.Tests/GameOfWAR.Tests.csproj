@@ -50,9 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DeckWithJokersTests.cs" />
+    <Compile Include="Helper\FakeWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EnumHelperTest.cs" />
     <Compile Include="TestHelper.cs" />
+    <Compile Include="WarRulesTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

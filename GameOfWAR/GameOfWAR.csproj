@@ -46,8 +46,10 @@
     <Compile Include="Enums\CardFace.cs" />
     <Compile Include="Enums\CardValues.cs" />
     <Compile Include="Helper\EnumHelper.cs" />
+    <Compile Include="Helper\ScreenHelper.cs" />
     <Compile Include="Interfaces\ICardhandler.cs" />
     <Compile Include="Interfaces\IWarRules.cs" />
+    <Compile Include="Interfaces\IWriter.cs" />
     <Compile Include="Logic\DeckWithJokers.cs" />
     <Compile Include="Logic\WarRules.cs" />
     <Compile Include="POCOS\Card.cs" />

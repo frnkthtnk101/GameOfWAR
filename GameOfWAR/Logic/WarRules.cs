@@ -1,70 +1,93 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GameOfWAR.Interfaces;
 using GameOfWAR.POCOS;
 using GameOfWAR.Enums;
-using GameOfWAR.Helper;
 
 
 namespace GameOfWAR.Logic
 {
     public class WarRules : IWarRules
     {
+        const int _WarFlag = 0;
+        const int _PlayerOneFlag = -1;
+        const int _PlayerTwoFlag = 1;
+
         public int DetermineWinnerOfBattle(Card playerOneCard, Card playerTwoCard)
         {
             //0  = WAR
             //-1 = player one
             //1  = player two
-            var determinationOfBattle = 0;
-            if (playerOneCard.Value > playerTwoCard.Value) determinationOfBattle = -1;
-            else if (playerOneCard.Value < playerTwoCard.Value) determinationOfBattle = 1;
+            var determinationOfBattle = _WarFlag;
+            if (playerOneCard.Value > playerTwoCard.Value) 
+                determinationOfBattle = _PlayerOneFlag;
+            else if (playerOneCard.Value < playerTwoCard.Value) 
+                determinationOfBattle = _PlayerTwoFlag;
             return determinationOfBattle;
         }
 
-        public void Fight(Queue<Card> playerOne, Queue<Card> playerTwo, int winnerOfbattle, List<Card> spoilsOfWar)
+        public void Fight(Queue<Card> playerOne, Queue<Card> playerTwo, int winnerOfbattle, List<Card> spoilsOfWar, IWriter writer)
         {
+            ShowPlayersCards(playerOne.Peek(), playerTwo.Peek(), writer);
             switch (winnerOfbattle)
             {
-                case -1:
-                case 1:
+                case _PlayerOneFlag:
+                case _PlayerTwoFlag:
                     spoilsOfWar.Add(playerOne.Dequeue());
                     spoilsOfWar.Add(playerTwo.Dequeue());
-                    if(winnerOfbattle == -1) GiveSpoilsToPlayer(playerOne, spoilsOfWar);
+                    if (winnerOfbattle == _PlayerOneFlag) GiveSpoilsToPlayer(playerOne, spoilsOfWar);
                     else GiveSpoilsToPlayer(playerTwo, spoilsOfWar);
                     break;
-                default:
+                case _WarFlag:
+                    writer.Write("WAAARRR!");
                     for (int i = 0; i < 3; i++)
                     {
                         if (playerOne.Count > 1) spoilsOfWar.Add(playerOne.Dequeue());
                         if (playerTwo.Count > 1) spoilsOfWar.Add(playerTwo.Dequeue());
                     }
                     winnerOfbattle = DetermineWinnerOfBattle(playerOne.Peek(), playerTwo.Peek());
-                    Fight(playerOne, playerTwo, winnerOfbattle, spoilsOfWar);
+                    Fight(playerOne, playerTwo, winnerOfbattle, spoilsOfWar, writer);
                     break;
-            }
-        }
-
-        private void GiveSpoilsToPlayer(Queue<Card> player, List<Card> spoilsOfWar)
-        {
-            foreach (var card in spoilsOfWar)
-            {
-                player.Enqueue(card);
+                default:
+                    break;
             }
         }
 
         public bool GameOver(IEnumerable<Card> playerOne, IEnumerable<Card> playerTwo)
         {
-            return playerOne.Count() == 0 || playerOne.Count() == 0;
+            return playerOne.Count() == 0 || playerTwo.Count() == 0;
         }
 
         public int WhoIsWinner(IEnumerable<Card> playerOne, IEnumerable<Card> playerTwo)
         {
-            int winner = 0;
-            if (playerOne.Count() == 0) winner = 1;
+            int winner = _PlayerOneFlag;
+            if (playerOne.Count() == 0) winner = _PlayerTwoFlag;
             return winner;
+        }
+        void ShowPlayersCards(Card playerOneCard, Card playerTwoCard, IWriter writer)
+        {
+            var playerOneCardString = ConvertCardToString(playerOneCard);
+            var playerTwoCardString = ConvertCardToString(playerTwoCard);
+            writer.Write($"player 1: {playerOneCardString} player 2: {playerTwoCardString}");
+        }
+
+        string ConvertCardToString(Card card)
+        {
+            var finalvalue = "[";
+            if (card.Face == CardFace.Joker)
+                finalvalue += "JOKER";
+            else
+                finalvalue += $"{card.Face} {card.Value}";
+            finalvalue += "]";
+            return finalvalue;
+        }
+
+        void GiveSpoilsToPlayer(Queue<Card> player, List<Card> spoilsOfWar)
+        {
+            foreach (var card in spoilsOfWar)
+            {
+                player.Enqueue(card);
+            }
         }
     }
 }

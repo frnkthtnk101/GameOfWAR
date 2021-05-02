@@ -9,9 +9,10 @@ namespace GameOfWAR.Interfaces
 {
     public interface IWarRules
     {
+        
         bool GameOver(IEnumerable<Card> playerOne, IEnumerable<Card> playerTwo);
         int DetermineWinnerOfBattle(Card playerOneCard, Card playerTwoCard);
         int WhoIsWinner(IEnumerable<Card> playerOne, IEnumerable<Card> playerTwo);
-        void Fight(Queue<Card> playerOne, Queue<Card> playerTwo, int winnerOfbattle, List<Card> spoilsOfWar);
+        void Fight(Queue<Card> playerOne, Queue<Card> playerTwo, int winnerOfbattle, List<Card> spoilsOfWar, IWriter writer);
     }
 }
