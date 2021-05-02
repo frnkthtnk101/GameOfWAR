@@ -4,47 +4,45 @@ using GameOfWAR.Logic;
 using GameOfWAR.POCOS;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameOfWAR
 {
     class Program
     {
-        static IWarRules warRules;
-        static ICardhandler cardhandler;
-        static IWriter writer;
+        static IWarRules _WarRules;
+        static ICardhandler _Cardhandler;
+        static IWriter _Console;
 
         static void Main(string[] args)
         {
-            cardhandler = new DeckWithJokers();
-            warRules = new WarRules();
-            writer = new ScreenHelper();
+            _Cardhandler = new DeckWithJokers();
+            _WarRules = new WarRules();
+            _Console = new ScreenHelper();
             PlayWar();
         }
 
         static void PlayWar()
         {
-            var play = true;
-            while(play)
+            var playingAGame = true;
+            while(playingAGame)
             {
-                cardhandler.ShuffleCards();
-                cardhandler.Split();
-                var playerOne = new Queue<Card>(cardhandler.GetPlayerDeck(0));
-                var playerTwo = new Queue<Card>(cardhandler.GetPlayerDeck(1));
+                _Cardhandler.ShuffleCards();
+                _Cardhandler.Split();
+                var playerOne = new Queue<Card>(_Cardhandler.GetPlayerDeck(0));
+                var playerTwo = new Queue<Card>(_Cardhandler.GetPlayerDeck(1));
                 var counter = 1;
-                while (!warRules.GameOver(playerOne, playerTwo))
+                while (!_WarRules.GameOver(playerOne, playerTwo))
                 {
-                    Console.WriteLine($"Round {counter}... FIGHT");
+                    _Console.Read($"Round {counter}... FIGHT");
                     var spoilsOfWar = new List<Card>();
-                    var winnerOfbattle = warRules.DetermineWinnerOfBattle(playerOne.Peek(), playerTwo.Peek());
-                    warRules.Fight(playerOne, playerTwo, winnerOfbattle, spoilsOfWar, writer);
+                    //The Fight method is a recursive method, so I decided to kickstart u in the main program.
+                    var winnerOfbattle = _WarRules.DetermineWinnerOfBattle(playerOne.Peek(), playerTwo.Peek());
+                    _WarRules.Fight(playerOne, playerTwo, winnerOfbattle, spoilsOfWar, _Console);
                     counter++;
-                    writer.Read("Press Enter to play the next round");
+                    _Console.Read("Press Enter to play the next round");
                 }
                 DetermineWinner(playerOne, playerTwo);
-                play = playAgain();
+                playingAGame = playAgain();
             }
 
         }
@@ -55,7 +53,7 @@ namespace GameOfWAR
             var response = false;
             do
             {
-                var input = writer.Read("press y and enter to play again, or press n and enter to quit.");
+                var input = _Console.Read("press y and enter to play again, or press n and enter to quit.").ToLower();
                 if(input == "y" || input == "n")
                 {
                     invalidResponse = false;
@@ -67,10 +65,10 @@ namespace GameOfWAR
 
         static void DetermineWinner(Queue<Card> playerOne, Queue<Card> playerTwo)
         {
-            if (warRules.WhoIsWinner(playerOne, playerTwo) == 1)
-                writer.Write("player 1 won!");
+            if (_WarRules.WhoIsWinner(playerOne, playerTwo) == 1)
+                _Console.Write("player 1 won!");
             else
-                writer.Write("player 2 won!");
+                _Console.Write("player 2 won!");
         }
     }
 }

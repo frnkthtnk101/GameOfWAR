@@ -60,14 +60,7 @@ namespace GameOfWAR.Logic
 
         public void ShuffleCards()
         {
-            var indexScrambler = new Random();
-            for(int i = 0; i < _numberOfCardsInDeck; i++)
-            {
-                var randomIndex = indexScrambler.Next(0, _numberOfCardsInDeck - 1);
-                var tempvalue = _deckOfCards[randomIndex];
-                _deckOfCards[randomIndex] = _deckOfCards[i];
-                _deckOfCards[i] = tempvalue;
-            }
+            ShuffleHelper.ShuffleCards(_deckOfCards);
         }
 
         public void Split(int numOfPlayers = 2)

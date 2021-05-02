@@ -47,6 +47,7 @@
     <Compile Include="Enums\CardValues.cs" />
     <Compile Include="Helper\EnumHelper.cs" />
     <Compile Include="Helper\ScreenHelper.cs" />
+    <Compile Include="Helper\ShuffleHelper.cs" />
     <Compile Include="Interfaces\ICardhandler.cs" />
     <Compile Include="Interfaces\IWarRules.cs" />
     <Compile Include="Interfaces\IWriter.cs" />

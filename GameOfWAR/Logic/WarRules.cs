@@ -3,7 +3,7 @@ using System.Linq;
 using GameOfWAR.Interfaces;
 using GameOfWAR.POCOS;
 using GameOfWAR.Enums;
-
+using GameOfWAR.Helper;
 
 namespace GameOfWAR.Logic
 {
@@ -15,9 +15,6 @@ namespace GameOfWAR.Logic
 
         public int DetermineWinnerOfBattle(Card playerOneCard, Card playerTwoCard)
         {
-            //0  = WAR
-            //-1 = player one
-            //1  = player two
             var determinationOfBattle = _WarFlag;
             if (playerOneCard.Value > playerTwoCard.Value) 
                 determinationOfBattle = _PlayerOneFlag;
@@ -35,8 +32,17 @@ namespace GameOfWAR.Logic
                 case _PlayerTwoFlag:
                     spoilsOfWar.Add(playerOne.Dequeue());
                     spoilsOfWar.Add(playerTwo.Dequeue());
-                    if (winnerOfbattle == _PlayerOneFlag) GiveSpoilsToPlayer(playerOne, spoilsOfWar);
-                    else GiveSpoilsToPlayer(playerTwo, spoilsOfWar);
+                    ShuffleHelper.ShuffleCards(spoilsOfWar);
+                    if (winnerOfbattle == _PlayerOneFlag)
+                    {
+                        GiveSpoilsToPlayer(playerOne, spoilsOfWar);
+                        writer.Write("Player one is victorious!");
+                    }
+                    else
+                    {
+                        GiveSpoilsToPlayer(playerTwo, spoilsOfWar);
+                        writer.Write("Player two is victorious!");
+                    }
                     break;
                 case _WarFlag:
                     writer.Write("WAAARRR!");
