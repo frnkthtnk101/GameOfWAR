@@ -65,7 +65,7 @@ namespace GameOfWAR
 
         static void DetermineWinner(Queue<Card> playerOne, Queue<Card> playerTwo)
         {
-            if (_WarRules.WhoIsWinner(playerOne, playerTwo) == 1)
+            if (_WarRules.WhoIsWinner(playerOne, playerTwo) == -1)
                 _Console.Write("player 1 won!");
             else
                 _Console.Write("player 2 won!");
